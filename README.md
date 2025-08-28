@@ -1,4 +1,11 @@
-## Hi there 👋
+# 👋 Olá, eu sou o Marcelo!  
+
+💻 Profissional de TI em transição para Desenvolvimento de Sistemas  
+🔧 Experiência com suporte técnico, sistemas ERP e integrações com APIs dos Correios  
+🌱 Atualmente estudando Python, Java e desenvolvimento de software  
+🚀 Interesse em automação de processos e soluções que conectam tecnologia e pessoas  
+
+Aqui você vai encontrar meus projetos, estudos e experimentos enquanto evoluo na área de programação.
 
 <!--
 **MarceloBarbosaSilva/MarceloBarbosaSilva** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
