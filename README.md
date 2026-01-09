@@ -1,11 +1,17 @@
-# 👋 Olá, eu sou o Marcelo!  
+# 👋 Olá, eu sou o Marcelo
 
-💻 Profissional de TI em transição para Desenvolvimento de Sistemas  
-🔧 Experiência com suporte técnico, sistemas ERP e integrações com APIs dos Correios  
-🌱 Atualmente estudando Python, Java e desenvolvimento de software  
-🚀 Interesse em automação de processos e soluções que conectam tecnologia e pessoas  
+💻 Profissional de TI em transição para Quality Assurance  
+🧪 Experiência com suporte técnico, sistemas ERP e integrações via APIs  
+🌱 Atualmente aprendendo fundamentos de QA e testes de software  
 
-Aqui você vai encontrar meus projetos, estudos e experimentos enquanto evoluo na área de programação.
+---
+
+# 👋 Hi, I'm Marcelo
+
+QA Junior | Quality Assurance  
+Background in technical support and operational systems  
+Experience with ERP systems and API integrations  
+Currently learning QA fundamentals and software testing  
 
 <!--
 **MarceloBarbosaSilva/MarceloBarbosaSilva** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
