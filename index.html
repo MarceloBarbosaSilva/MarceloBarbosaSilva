@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marcelo Barbosa Silva — Desenvolvedor de Software 💻</title>
+  <meta name="description" content="Desenvolvedor de Software em formação, especializado em C#, JavaScript e Design Patterns. Estudante de ADS sempre em busca de novos desafios! 🚀" />
+  <meta name="keywords" content="desenvolvedor, software, C#, JavaScript, HTML, CSS, design patterns, ADS, programação, portfolio" />
+  <meta name="author" content="Marcelo Barbosa Silva" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── RESET & BASE ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #07061a;
+      --surface:   rgba(255,255,255,.04);
+      --border:    rgba(139,92,246,.25);
+      --purple:    #9333ea;
+      --pink:      #ec4899;
+      --yellow:    #facc15;
+      --blue:      #3b82f6;
+      --text:      #f1f0ff;
+      --muted:     #a09fc0;
+      --grad:      linear-gradient(135deg, var(--purple), var(--pink));
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── ANIMATED BACKGROUND ─── */
+    .bg-canvas {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 10% 20%, rgba(147,51,234,.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 90% 80%, rgba(236,72,153,.14) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 50% 50%, rgba(59,130,246,.08) 0%, transparent 70%),
+        #07061a;
+    }
+
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: .55;
+    }
+
+    .orb-1 {
+      width: 520px; height: 520px;
+      background: rgba(147,51,234,.25);
+      top: -100px; left: -100px;
+      animation: float1 14s ease-in-out infinite;
+    }
+
+    .orb-2 {
+      width: 400px; height: 400px;
+      background: rgba(236,72,153,.18);
+      bottom: -60px; right: -80px;
+      animation: float2 10s ease-in-out infinite;
+    }
+
+    .orb-3 {
+      width: 300px; height: 300px;
+      background: rgba(59,130,246,.12);
+      top: 40%; left: 40%;
+      animation: float3 16s ease-in-out infinite;
+    }
+
+    /* cursor blob */
+    .cursor-blob {
+      position: fixed;
+      width: 380px; height: 380px;
+      border-radius: 50%;
+      background: rgba(147,51,234,.12);
+      filter: blur(70px);
+      pointer-events: none;
+      z-index: 0;
+      transform: translate(-50%,-50%);
+      transition: left .2s ease, top .2s ease;
+    }
+
+    @keyframes float1 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      50%      { transform: translate(60px,40px) scale(1.08); }
+    }
+    @keyframes float2 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      50%      { transform: translate(-40px,-50px) scale(1.05); }
+    }
+    @keyframes float3 {
+      0%,100% { transform: translate(-50%,-50%) scale(1); }
+      50%      { transform: translate(-50%,-50%) scale(1.12); }
+    }
+
+    /* ─── LAYOUT UTILS ─── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+    .relative  { position: relative; }
+    .z1        { position: relative; z-index: 1; }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 3px; }
+
+    /* ─── GLASS CARD ─── */
+    .glass {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+      border-radius: 20px;
+    }
+
+    /* ─── GRADIENT TEXT ─── */
+    .grad-text {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .grad-text-3 {
+      background: linear-gradient(135deg, var(--purple), var(--pink), var(--yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--grad);
+      color: #fff;
+      padding: .85rem 2rem;
+      border-radius: 999px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 0 24px rgba(147,51,234,.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 0 36px rgba(147,51,234,.45); }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: transparent;
+      color: #c084fc;
+      padding: .85rem 2rem;
+      border-radius: 999px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      border: 2px solid #9333ea;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .2s, color .2s, transform .2s;
+    }
+    .btn-outline:hover { background: #9333ea; color: #fff; transform: translateY(-2px); }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      padding: 1.1rem 0;
+      background: rgba(7,6,26,.6);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(147,51,234,.12);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      letter-spacing: .03em;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: #c084fc; }
+
+    /* ─── HERO ─── */
+    #hero {
+      padding: 7rem 0 5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(147,51,234,.15);
+      border: 1px solid rgba(147,51,234,.35);
+      padding: .35rem 1rem;
+      border-radius: 999px;
+      font-size: .82rem;
+      font-weight: 600;
+      color: #c084fc;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-badge .dot {
+      width: 8px; height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: pulse-dot 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: .6; transform: scale(1.3); }
+    }
+
+    h1.hero-name {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: .6rem;
+    }
+
+    h1.hero-tagline {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 520px;
+      margin-bottom: 2.2rem;
+    }
+
+    .hero-desc strong { color: #c084fc; font-weight: 700; }
+    .hero-desc em     { color: var(--pink); font-style: normal; font-weight: 700; }
+
+    .hero-btns { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+
+    .hero-meta {
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+      color: var(--muted); font-size: .88rem;
+    }
+    .hero-meta span { display: flex; align-items: center; gap: .4rem; }
+
+    /* Photo card */
+    .photo-card {
+      position: relative;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.4rem;
+    }
+
+    .photo-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .photo-ring {
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      background: var(--grad);
+      z-index: 0;
+      animation: spin-ring 8s linear infinite;
+    }
+
+    .photo-ring::before {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      background: var(--bg);
+      border-radius: 50%;
+    }
+
+    @keyframes spin-ring {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .photo-img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      border: 4px solid var(--bg);
+      box-shadow: 0 0 40px rgba(147,51,234,.4);
+    }
+
+    .photo-status {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(34,197,94,.12);
+      border: 1px solid rgba(34,197,94,.3);
+      color: #4ade80;
+      padding: .4rem 1.1rem;
+      border-radius: 999px;
+      font-size: .82rem;
+      font-weight: 700;
+    }
+
+    .photo-status .dot {
+      width: 8px; height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: pulse-dot 1.8s ease-in-out infinite;
+    }
+
+    .photo-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      justify-content: center;
+    }
+
+    .floating-emoji {
+      position: absolute;
+      font-size: 2.2rem;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .fe-fire  { top: -16px; right: -16px; animation: wobble 3s ease-in-out infinite; }
+    .fe-code  { bottom: -16px; left: -16px; animation: wobble 2.5s ease-in-out infinite .5s; }
+
+    @keyframes wobble {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      50%      { transform: translateY(-12px) rotate(5deg); }
+    }
+
+    /* ─── SECTION HEADINGS ─── */
+    .section { padding: 5rem 0; }
+
+    .section-label {
+      display: inline-block;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #c084fc;
+      margin-bottom: .8rem;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 1rem;
+      line-height: 1.15;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 680px;
+      line-height: 1.7;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ─── FEATURES GRID ─── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      padding: 2rem;
+      text-align: center;
+      transition: transform .3s, border-color .3s;
+      cursor: default;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(147,51,234,.5);
+    }
+
+    .feature-card .icon-wrap {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .7rem;
+    }
+
+    .feature-card p {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ─── CTA BAND ─── */
+    .cta-band {
+      padding: 3.5rem;
+      text-align: center;
+      margin-bottom: 0;
+    }
+
+    .cta-band h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .cta-band p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 560px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+
+    .cta-meta {
+      margin-top: 1.4rem;
+      color: var(--muted);
+      font-size: .85rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    /* ─── PROJECTS ─── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: transform .3s, border-color .3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(147,51,234,.5);
+    }
+
+    .project-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .project-emoji { font-size: 2.2rem; }
+
+    .badge {
+      font-size: .72rem;
+      font-weight: 700;
+      padding: .25rem .75rem;
+      border-radius: 999px;
+    }
+    .badge-green  { background: rgba(34,197,94,.15);  color: #4ade80;  border: 1px solid rgba(34,197,94,.3); }
+    .badge-yellow { background: rgba(250,204,21,.15); color: #fde047;  border: 1px solid rgba(250,204,21,.3); }
+    .badge-blue   { background: rgba(59,130,246,.15); color: #93c5fd;  border: 1px solid rgba(59,130,246,.3); }
+
+    .project-type {
+      font-size: .78rem;
+      font-weight: 600;
+      color: #c084fc;
+      margin-bottom: .3rem;
+    }
+
+    .project-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .project-card p {
+      font-size: .86rem;
+      color: var(--muted);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .tags {
+      display: flex; flex-wrap: wrap; gap: .5rem;
+    }
+
+    .tag {
+      font-size: .72rem;
+      font-weight: 600;
+      padding: .25rem .7rem;
+      background: rgba(147,51,234,.15);
+      color: #c084fc;
+      border: 1px solid rgba(147,51,234,.3);
+      border-radius: 999px;
+    }
+
+    .project-actions {
+      display: flex; gap: .7rem;
+    }
+
+    .btn-sm {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .4rem;
+      padding: .55rem 1rem;
+      border-radius: 10px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .82rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background .2s, transform .2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-sm-ghost {
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+    }
+    .btn-sm-ghost:hover { background: rgba(255,255,255,.12); transform: scale(1.03); }
+
+    .btn-sm-purple {
+      background: var(--purple);
+      color: #fff;
+    }
+    .btn-sm-purple:hover { background: #7e22ce; transform: scale(1.03); }
+
+    .github-cta {
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .btn-github {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      padding: .9rem 2rem;
+      border-radius: 999px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: .95rem;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,.12);
+      transition: background .2s, transform .2s;
+    }
+    .btn-github:hover { background: rgba(255,255,255,.12); transform: translateY(-2px); }
+
+    /* SVG ICONS (inline) */
+    .icon-svg {
+      width: 1.1rem; height: 1.1rem;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .testi-card {
+      padding: 2rem;
+      transition: transform .3s, border-color .3s;
+    }
+
+    .testi-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(147,51,234,.5);
+    }
+
+    .stars {
+      display: flex; gap: .25rem;
+      margin-bottom: 1rem;
+    }
+    .star { color: var(--yellow); font-size: 1rem; }
+
+    .testi-card blockquote {
+      font-size: .95rem;
+      color: #d4d3f0;
+      line-height: 1.75;
+      font-style: italic;
+      margin-bottom: 1.4rem;
+    }
+
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+    }
+
+    .testi-avatar { font-size: 2.2rem; }
+
+    .testi-author h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .testi-author p {
+      font-size: .78rem;
+      color: #c084fc;
+      margin-top: .15rem;
+    }
+
+    /* Stats */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 1.8rem 1rem;
+      transition: transform .3s;
+    }
+    .stat-card:hover { transform: translateY(-4px); }
+
+    .stat-card .stat-emoji { font-size: 2rem; margin-bottom: .6rem; display: block; }
+    .stat-card .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--text);
+      display: block;
+    }
+    .stat-card .stat-label {
+      font-size: .82rem;
+      color: var(--muted);
+      margin-top: .3rem;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: rgba(0,0,0,.45);
+      border-top: 1px solid rgba(147,51,234,.15);
+      backdrop-filter: blur(20px);
+      padding: 4rem 0 2rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand .logo { font-size: 1.4rem; text-decoration: none; }
+    .footer-brand p {
+      margin: 1rem 0 1.5rem;
+      font-size: .85rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .social-links { display: flex; gap: .7rem; }
+    .social-btn {
+      width: 38px; height: 38px;
+      background: rgba(147,51,234,.12);
+      border: 1px solid rgba(147,51,234,.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      color: #c084fc;
+      transition: background .2s, transform .2s;
+    }
+    .social-btn:hover { background: rgba(147,51,234,.3); transform: scale(1.1); }
+
+    .footer-col h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-list { list-style: none; }
+    .footer-list li {
+      display: flex; align-items: center; gap: .5rem;
+      font-size: .85rem;
+      color: var(--muted);
+      margin-bottom: .7rem;
+    }
+
+    .footer-contact p {
+      font-size: .85rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.2rem;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(147,51,234,.12);
+      padding-top: 1.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-bottom p { font-size: .82rem; color: var(--muted); }
+
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: .82rem; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: #c084fc; }
+
+    .easter-egg {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: .75rem;
+      color: rgba(160,159,192,.4);
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+    .reveal-delay-5 { transition-delay: .5s; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      #hero               { grid-template-columns: 1fr; }
+      .photo-card         { max-width: 360px; margin: 0 auto; }
+      .features-grid      { grid-template-columns: repeat(2, 1fr); }
+      .projects-grid      { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid        { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .features-grid      { grid-template-columns: 1fr; }
+      .projects-grid      { grid-template-columns: 1fr; }
+      .testimonials-grid  { grid-template-columns: 1fr; }
+      .stats-row          { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid        { grid-template-columns: 1fr; }
+      .nav-links a        { display: none; }
+      .footer-bottom      { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Background -->
+<div class="bg-canvas"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+<div class="cursor-blob" id="cursorBlob"></div>
+
+<!-- ─── NAV ─── -->
+<nav class="z1">
+  <div class="container nav-inner">
+    <a href="#hero" class="logo">💻 Marcelo.dev</a>
+    <div class="nav-links">
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projetos</a>
+      <a href="#testimonials">Depoimentos</a>
+      <a href="mailto:marcelao61.mbs@gmail.com" class="btn-primary" style="padding:.6rem 1.4rem;font-size:.88rem;">Contato 📧</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero" class="container z1">
+  <div>
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Aberto a oportunidades 🚀
+    </div>
+    <h1 class="hero-name">Marcelo Barbosa Silva</h1>
+    <h1 class="hero-tagline">
+      <span class="grad-text-3">MUITO LOUCO! 🤯</span>
+    </h1>
+    <p class="hero-desc">
+      <strong>Desenvolvedor de Software</strong> em formação,
+      <em>apaixonado por tecnologia</em> e sempre em busca de novos desafios!<br/>
+      Transformando <strong style="color:var(--yellow);">café em código</strong> e criando soluções que fazem a diferença! ☕💻✨
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">VER MEUS PROJETOS! 💻</a>
+      <a href="mailto:marcelao61.mbs@gmail.com" class="btn-outline">Vamos Conversar? 💬</a>
+    </div>
+    <div class="hero-meta">
+      <span>⭐ Estudante ADS 📚</span>
+      <span>
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        Sempre aprendendo 🚀
+      </span>
+    </div>
+  </div>
+
+  <div class="photo-card glass reveal">
+    <div class="photo-wrapper">
+      <div class="photo-ring"></div>
+      <img
+        src="https://github.com/MarceloBarbosaSilva.png"
+        alt="Foto de Marcelo Barbosa Silva"
+        class="photo-img"
+        onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Ccircle cx=%22100%22 cy=%22100%22 r=%22100%22 fill=%22%2307061a%22/%3E%3Ccircle cx=%22100%22 cy=%2278%22 r=%2236%22 fill=%22%239333ea%22/%3E%3Cellipse cx=%22100%22 cy=%22175%22 rx=%2260%22 ry=%2248%22 fill=%22%239333ea%22/%3E%3C/svg%3E'"
+      />
+    </div>
+    <div class="photo-status">
+      <span class="dot"></span>
+      Disponível para oportunidades
+    </div>
+    <div class="photo-skills">
+      <span class="tag">C# 🔷</span>
+      <span class="tag">JavaScript ⚡</span>
+      <span class="tag">HTML &amp; CSS 🎨</span>
+      <span class="tag">Design Patterns 🏗️</span>
+      <span class="tag">Git 🔄</span>
+      <span class="tag">ADS 📚</span>
+    </div>
+    <span class="floating-emoji fe-fire">🔥</span>
+    <span class="floating-emoji fe-code">💻</span>
+  </div>
+</section>
+
+<!-- ─── SKILLS / FEATURES ─── -->
+<section id="skills" class="section z1">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Por que eu?</span>
+      <h2 class="section-title">Por que sou <span class="grad-text">DIFERENTE</span>? 🌟</h2>
+      <p class="section-sub">
+        Não sou apenas mais um desenvolvedor. Sou alguém que
+        <strong style="color:#ec4899;">transforma problemas em soluções</strong> e está sempre em busca de aprender algo novo!
+      </p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card glass reveal reveal-delay-1">
+        <div class="icon-wrap">🔨</div>
+        <h3>Desenvolvimento Full Stack 💻</h3>
+        <p>Domínio em C#, HTML, CSS, JavaScript e sempre explorando novas tecnologias para criar soluções completas.</p>
+      </div>
+      <div class="feature-card glass reveal reveal-delay-2">
+        <div class="icon-wrap">⚙️</div>
+        <h3>Design Patterns Expert 🏗️</h3>
+        <p>Conhecimento sólido em padrões como Strategy, Facade e outros, criando código limpo e escalável.</p>
+      </div>
+      <div class="feature-card glass reveal reveal-delay-3">
+        <div class="icon-wrap">🔄</div>
+        <h3>Colaboração e Git 🤝</h3>
+        <p>Experiência com controle de versão, trabalho em equipe e boas práticas de desenvolvimento colaborativo.</p>
+      </div>
+      <div class="feature-card glass reveal reveal-delay-1">
+        <div class="icon-wrap">🎯</div>
+        <h3>Sempre Aprendendo 📚</h3>
+        <p>Estudante de ADS com fome de conhecimento, sempre buscando novos desafios e tecnologias.</p>
+      </div>
+      <div class="feature-card glass reveal reveal-delay-2">
+        <div class="icon-wrap">🧠</div>
+        <h3>Resolução de Problemas ⚡</h3>
+        <p>Capacidade de analisar problemas complexos e criar soluções eficientes e inovadoras.</p>
+      </div>
+      <div class="feature-card glass reveal reveal-delay-3">
+        <div class="icon-wrap">💡</div>
+        <h3>Projetos Reais 🎯</h3>
+        <p>Do conceito à implementação, transformo ideias em aplicações funcionais que fazem a diferença.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA BAND ─── -->
+<section class="section z1" style="padding:2rem 0;">
+  <div class="container">
+    <div class="cta-band glass reveal">
+      <h2>Vamos <span class="grad-text-3">CONSTRUIR ALGO INCRÍVEL</span> juntos? 🤝</h2>
+      <p>Está procurando um desenvolvedor dedicado e sempre disposto a aprender? Vamos conversar sobre seu próximo projeto!</p>
+      <a href="mailto:marcelao61.mbs@gmail.com" class="btn-primary" style="font-size:1.1rem;padding:1rem 2.5rem;">VAMOS CONVERSAR! 💬</a>
+      <div class="cta-meta">
+        <span>💻 Desenvolvedor em formação</span>
+        <span>🚀 Sempre em busca de novos desafios</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROJECTS ─── -->
+<section id="projects" class="section z1">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">GitHub</span>
+      <h2 class="section-title">Meus <span class="grad-text">PROJETOS</span> 🚀</h2>
+      <p class="section-sub">
+        Alguns dos projetos que desenvolvi durante minha jornada como desenvolvedor.
+        Cada um representa um aprendizado e um passo na minha evolução!
+      </p>
+    </div>
+    <div class="projects-grid">
+      <!-- Project 1 -->
+      <div class="project-card glass reveal reveal-delay-1">
+        <div class="project-top">
+          <span class="project-emoji">🏗️</span>
+          <span class="badge badge-green">Completo</span>
+        </div>
+        <div>
+          <div class="project-type">Backend</div>
+          <h3>Design Patterns em C#</h3>
+        </div>
+        <p>Implementação de diversos padrões de design incluindo Strategy, Facade e outros. Demonstrando conhecimento sólido em arquitetura de software.</p>
+        <div class="tags">
+          <span class="tag">C#</span>
+          <span class="tag">.NET</span>
+          <span class="tag">Design Patterns</span>
+        </div>
+        <div class="project-actions">
+          <a href="https://github.com/MarceloBarbosaSilva/DesignPatternStrategy" target="_blank" rel="noopener" class="btn-sm btn-sm-ghost">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            Código
+          </a>
+          <button class="btn-sm btn-sm-purple">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+            Detalhes
+          </button>
+        </div>
+      </div>
+      <!-- Project 2 -->
+      <div class="project-card glass reveal reveal-delay-2">
+        <div class="project-top">
+          <span class="project-emoji">🌐</span>
+          <span class="badge badge-yellow">Em desenvolvimento</span>
+        </div>
+        <div>
+          <div class="project-type">Frontend</div>
+          <h3>Sistema de SCM</h3>
+        </div>
+        <p>Sistema de gerenciamento desenvolvido com foco em boas práticas e organização de código.</p>
+        <div class="tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+        </div>
+        <div class="project-actions">
+          <a href="https://github.com/MarceloBarbosaSilva/scm" target="_blank" rel="noopener" class="btn-sm btn-sm-ghost">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            Código
+          </a>
+          <button class="btn-sm btn-sm-purple">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+            Detalhes
+          </button>
+        </div>
+      </div>
+      <!-- Project 3 -->
+      <div class="project-card glass reveal reveal-delay-3">
+        <div class="project-top">
+          <span class="project-emoji">📚</span>
+          <span class="badge badge-blue">Contínuo</span>
+        </div>
+        <div>
+          <div class="project-type">Educacional</div>
+          <h3>Projetos Acadêmicos</h3>
+        </div>
+        <p>Diversos projetos desenvolvidos durante o curso de ADS, explorando diferentes tecnologias e conceitos.</p>
+        <div class="tags">
+          <span class="tag">C#</span>
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">Git</span>
+        </div>
+        <div class="project-actions">
+          <a href="https://github.com/MarceloBarbosaSilva" target="_blank" rel="noopener" class="btn-sm btn-sm-ghost">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            Código
+          </a>
+          <button class="btn-sm btn-sm-purple">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+            Detalhes
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="github-cta reveal">
+      <a href="https://github.com/MarceloBarbosaSilva" target="_blank" rel="noopener" class="btn-github">
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        Ver todos no GitHub
+        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<section id="testimonials" class="section z1">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Feedback</span>
+      <h2 class="section-title">O que <span class="grad-text">Colegas</span> falam? 💬</h2>
+      <p class="section-sub">Feedback de professores, colegas de curso e pessoas com quem já trabalhei.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testi-card glass reveal reveal-delay-1">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <blockquote>"Marcelo demonstra excelente compreensão dos conceitos de programação e sempre busca implementar as melhores práticas em seus projetos. Destaque especial para seu domínio em Design Patterns! 🎓"</blockquote>
+        <div class="testi-author">
+          <span class="testi-avatar">👨‍🏫</span>
+          <div>
+            <h4>Prof. Anderson Silva</h4>
+            <p>Professor de Programação Orientada a Objetos</p>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card glass reveal reveal-delay-2">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <blockquote>"Sempre que tenho dúvidas em programação, o Marcelo é uma das primeiras pessoas que procuro. Ele tem uma didática incrível para explicar conceitos complexos de forma simples! 🤝"</blockquote>
+        <div class="testi-author">
+          <span class="testi-avatar">👩‍💻</span>
+          <div>
+            <h4>Julia Santos</h4>
+            <p>Colega de curso — ADS</p>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card glass reveal reveal-delay-3">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <blockquote>"Trabalhei com o Marcelo em diversos projetos e sempre me impressiono com sua dedicação e capacidade de resolver problemas. Além disso, é uma pessoa super colaborativa! 🚀"</blockquote>
+        <div class="testi-author">
+          <span class="testi-avatar">👨‍💼</span>
+          <div>
+            <h4>Ricardo Oliveira</h4>
+            <p>Líder de Projeto Acadêmico</p>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card glass reveal reveal-delay-4">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <blockquote>"O Marcelo é um exemplo de aluno dedicado e proativo. Sempre participativo nas aulas e com uma sede de conhecimento admirável. Certeza que será um excelente profissional! ⭐"</blockquote>
+        <div class="testi-author">
+          <span class="testi-avatar">👩‍🎓</span>
+          <div>
+            <h4>Ana Costa</h4>
+            <p>Coordenadora do Curso ADS</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card glass reveal reveal-delay-1">
+        <span class="stat-emoji">📁</span>
+        <span class="stat-num">18+</span>
+        <span class="stat-label">Repositórios no GitHub</span>
+      </div>
+      <div class="stat-card glass reveal reveal-delay-2">
+        <span class="stat-emoji">💻</span>
+        <span class="stat-num">3+</span>
+        <span class="stat-label">Linguagens Dominadas</span>
+      </div>
+      <div class="stat-card glass reveal reveal-delay-3">
+        <span class="stat-emoji">📚</span>
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Dedicação aos Estudos</span>
+      </div>
+      <div class="stat-card glass reveal reveal-delay-4">
+        <span class="stat-emoji">🚀</span>
+        <span class="stat-num">∞</span>
+        <span class="stat-label">Vontade de Aprender</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer class="z1">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <a href="#hero" class="logo">💻 Marcelo.dev</a>
+        <p>Desenvolvedor de Software em formação, apaixonado por tecnologia e sempre em busca de novos desafios. Transformando café em código desde 2024! ☕💻</p>
+        <div class="social-links">
+          <a href="https://github.com/MarceloBarbosaSilva" target="_blank" rel="noopener" class="social-btn" title="GitHub">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+          <a href="https://x.com/barbosa_marcel0" target="_blank" rel="noopener" class="social-btn" title="Twitter / X">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://linkedin.com/in/mabarbosasilva" target="_blank" rel="noopener" class="social-btn" title="LinkedIn">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="footer-col">
+        <h4>Skills 💻</h4>
+        <ul class="footer-list">
+          <li><span>🔷</span> C# &amp; .NET</li>
+          <li><span>🎨</span> HTML &amp; CSS</li>
+          <li><span>⚡</span> JavaScript</li>
+          <li><span>🏗️</span> Design Patterns</li>
+          <li><span>🔄</span> Git &amp; GitHub</li>
+        </ul>
+      </div>
+
+      <!-- Interests -->
+      <div class="footer-col">
+        <h4>Interesses 🎯</h4>
+        <ul class="footer-list">
+          <li><span>🌐</span> Desenvolvimento Web</li>
+          <li><span>🏛️</span> Arquitetura de Software</li>
+          <li><span>🚀</span> Novas Tecnologias</li>
+          <li><span>💡</span> Open Source</li>
+          <li><span>📚</span> Aprendizado Contínuo</li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="footer-col footer-contact">
+        <h4>Vamos Conversar? 💬</h4>
+        <p>Tem algum projeto em mente? Vamos criar algo incrível juntos!</p>
+        <a href="mailto:marcelao61.mbs@gmail.com" class="btn-primary" style="width:100%;justify-content:center;">Enviar Email 📧</a>
+        <p style="margin-top:.8rem;font-size:.75rem;color:#6b6a8f;text-align:center;">Sempre aberto a novas oportunidades!</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2024 Marcelo Barbosa Silva. Feito com ❤️ e muito ☕ por um desenvolvedor apaixonado.</p>
+      <div class="footer-links">
+        <a href="#">Termos de Uso</a>
+        <a href="#">Privacidade</a>
+        <a href="mailto:marcelao61.mbs@gmail.com">Suporte</a>
+      </div>
+    </div>
+
+    <div class="easter-egg">
+      🥚 Easter egg: Digite ↑↑↓↓←→←→BA para desbloquear o modo hack!
+    </div>
+  </div>
+</footer>
+
+<!-- ─── SCRIPTS ─── -->
+<script>
+  // Cursor blob
+  const blob = document.getElementById('cursorBlob');
+  document.addEventListener('mousemove', e => {
+    blob.style.left = e.clientX + 'px';
+    blob.style.top  = e.clientY + 'px';
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(el => io.observe(el));
+
+  // Hero text animate on load
+  document.querySelectorAll('#hero > div > *').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = `opacity .7s ease ${i * .12}s, transform .7s ease ${i * .12}s`;
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    }));
+  });
+
+  // Konami code easter egg
+  const konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  let ki = 0;
+  document.addEventListener('keydown', e => {
+    if (e.key === konami[ki]) {
+      ki++;
+      if (ki === konami.length) {
+        ki = 0;
+        document.body.style.transition = 'filter 0.3s';
+        document.body.style.filter = 'hue-rotate(90deg) saturate(2)';
+        setTimeout(() => document.body.style.filter = '', 3000);
+        alert('🔓 MODO HACK ATIVADO! Você descobriu o easter egg! 💻🔥');
+      }
+    } else { ki = 0; }
+  });
+</script>
+</body>
+</html>
