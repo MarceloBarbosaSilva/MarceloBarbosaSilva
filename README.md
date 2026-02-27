@@ -1,29 +1,84 @@
-# 👋 Olá, eu sou o Marcelo
+# Olá, eu sou o Marcelo 👋
 
-💻 Profissional de TI em transição para Quality Assurance  
-🧪 Experiência com suporte técnico, sistemas ERP e integrações via APIs  
-🌱 Atualmente aprendendo fundamentos de QA e testes de software  
+Profissional de Tecnologia da Informação com foco em **IT Support, Infraestrutura e qualidade de sistemas**.
+
+Atuo com suporte técnico e infraestrutura em ambiente operacional, trabalhando diretamente com diagnóstico de incidentes, estabilidade de sistemas e melhoria de processos.
+
+Nos últimos anos tenho ampliado minha visão técnica estudando **Quality Assurance e fundamentos de desenvolvimento**, buscando compreender melhor como os sistemas funcionam e como prevenir falhas antes que impactem a operação.
 
 ---
 
-# 👋 Hi, I'm Marcelo
+## 🧰 O que eu faço no dia a dia
 
-QA Junior | Quality Assurance  
-Background in technical support and operational systems  
-Experience with ERP systems and API integrations  
-Currently learning QA fundamentals and software testing  
+- Suporte técnico N1/N2
+- Diagnóstico e resolução de incidentes
+- Suporte a sistemas Windows
+- Monitoramento de sistemas ERP integrados
+- Apoio à infraestrutura e conectividade
+- Identificação de melhorias em processos operacionais
 
-<!--
-**MarceloBarbosaSilva/MarceloBarbosaSilva** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+---
 
-Here are some ideas to get you started:
+## 🧠 O que estou estudando atualmente
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+Atualmente estou aprofundando meus conhecimentos em:
+
+- Quality Assurance e fundamentos de testes
+- Python
+- Java
+- Next.js
+- Diagnóstico e análise de falhas em sistemas
+
+Meu objetivo é ampliar minha capacidade de análise técnica e entender melhor como os sistemas são construídos e mantidos.
+
+---
+
+## 🛠 Tecnologias e conhecimentos
+
+**Infraestrutura & Suporte**
+- Windows
+- Redes TCP/IP
+- Hardware
+- VPN
+- Troubleshooting
+- Monitoramento de sistemas
+
+**Sistemas & Operação**
+- ERP corporativo
+- Integração via API
+- Gestão de chamados
+- Documentação técnica
+
+**Desenvolvimento (explorando)**
+- Python
+- Java
+- Next.js
+- Git & GitHub
+- HTML & CSS
+
+---
+
+## 📂 Projetos
+
+Aqui no GitHub você vai encontrar:
+
+- estudos de programação
+- experimentos com automação
+- projetos pessoais
+- exercícios de aprendizado
+
+Uso o GitHub principalmente como **registro da minha evolução técnica**.
+
+---
+
+## 📫 Contato
+
+LinkedIn  
+https://linkedin.com/in/mabarbosasilva
+
+Email  
+marcelo.silva8115@gmail.com
+
+---
+
+⭐ Sempre aprendendo, sempre melhorando sistemas.

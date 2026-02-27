@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Marcelo Barbosa Silva — Desenvolvedor de Software 💻</title>
-  <meta name="description" content="Desenvolvedor de Software em formação, especializado em C#, JavaScript e Design Patterns. Estudante de ADS sempre em busca de novos desafios! 🚀" />
+  <title>Marcelo Barbosa Silva — IT Support · Infraestrutura · QA</title>
+  <meta name="description" content="Profissional de TI com experiência em suporte técnico e infraestrutura em ambiente operacional. Diagnóstico de incidentes, estabilidade de sistemas e QA." />
   <meta name="keywords" content="desenvolvedor, software, C#, JavaScript, HTML, CSS, design patterns, ADS, programação, portfolio" />
   <meta name="author" content="Marcelo Barbosa Silva" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>" />
@@ -295,13 +295,14 @@
 
     .photo-wrapper {
       position: relative;
-      width: 100%;
-      max-width: 300px;
+      width: 260px;
+      height: 260px;
+      flex-shrink: 0;
     }
 
     .photo-ring {
       position: absolute;
-      inset: -5px;
+      inset: -6px;
       border-radius: 50%;
       background: var(--grad);
       z-index: 0;
@@ -311,7 +312,7 @@
     .photo-ring::before {
       content: '';
       position: absolute;
-      inset: 4px;
+      inset: 5px;
       background: var(--bg);
       border-radius: 50%;
     }
@@ -325,9 +326,10 @@
       position: relative;
       z-index: 1;
       width: 100%;
-      aspect-ratio: 1;
+      height: 100%;
       border-radius: 50%;
       object-fit: cover;
+      object-position: center top;
       display: block;
       border: 4px solid var(--bg);
       box-shadow: 0 0 40px rgba(147,51,234,.4);
@@ -419,10 +421,7 @@
       cursor: default;
     }
 
-    .feature-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(147,51,234,.5);
-    }
+    .feature-card:hover { }
 
     .feature-card .icon-wrap {
       font-size: 3rem;
@@ -491,10 +490,7 @@
       transition: transform .3s, border-color .3s;
     }
 
-    .project-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(147,51,234,.5);
-    }
+    .project-card:hover { }
 
     .project-top {
       display: flex;
@@ -623,10 +619,7 @@
       transition: transform .3s, border-color .3s;
     }
 
-    .testi-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(147,51,234,.5);
-    }
+    .testi-card:hover { }
 
     .stars {
       display: flex; gap: .25rem;
@@ -676,7 +669,7 @@
       padding: 1.8rem 1rem;
       transition: transform .3s;
     }
-    .stat-card:hover { transform: translateY(-4px); }
+    .stat-card:hover { }
 
     .stat-card .stat-emoji { font-size: 2rem; margin-bottom: .6rem; display: block; }
     .stat-card .stat-num {
@@ -771,6 +764,39 @@
       color: rgba(160,159,192,.4);
     }
 
+
+
+    /* ─── TILT CARDS ─── */
+    .glass {
+      transition: box-shadow .3s ease, border-color .3s ease;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .glass.tilt-active {
+      box-shadow:
+        0 0 0 1px rgba(192,132,252,.7),
+        0 0 24px rgba(147,51,234,.35),
+        0 8px 32px rgba(0,0,0,.4);
+      border-color: rgba(192,132,252,.75) !important;
+    }
+    /* ─── LANG TOGGLE ─── */
+    .lang-btn {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: rgba(147,51,234,.12);
+      border: 1px solid rgba(147,51,234,.35);
+      color: #c084fc;
+      padding: .4rem .9rem;
+      border-radius: 999px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+      letter-spacing: .04em;
+    }
+    .lang-btn:hover { background: rgba(147,51,234,.28); transform: scale(1.05); }
+    .lang-btn .lang-flag { font-size: 1rem; }
     /* ─── SCROLL REVEAL ─── */
     .reveal {
       opacity: 0;
@@ -819,12 +845,13 @@
 <!-- ─── NAV ─── -->
 <nav class="z1">
   <div class="container nav-inner">
-    <a href="#hero" class="logo">💻 Marcelo.dev</a>
+    <a href="#hero" class="logo">🖥️ Marcelo.dev</a>
     <div class="nav-links">
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projetos</a>
-      <a href="#testimonials">Depoimentos</a>
-      <a href="mailto:marcelao61.mbs@gmail.com" class="btn-primary" style="padding:.6rem 1.4rem;font-size:.88rem;">Contato 📧</a>
+      <a href="#skills" data-i18n="nav_skills">Skills</a>
+      <a href="#projects" data-i18n="nav_projects">Projetos</a>
+      <a href="#testimonials" data-i18n="nav_skills_section">Habilidades</a>
+      <button class="lang-btn" id="langToggle" onclick="toggleLang()"><span class="lang-flag">🇺🇸</span> EN</button>
+      <a href="mailto:marcelo.silva8115@gmail.com" class="btn-primary" style="padding:.6rem 1.4rem;font-size:.88rem;" data-i18n="nav_contact">Fala comigo 👋</a>
     </div>
   </div>
 </nav>
@@ -834,28 +861,25 @@
   <div>
     <div class="hero-badge">
       <span class="dot"></span>
-      Aberto a oportunidades 🚀
+      <span data-i18n="hero_badge">Santos/SP · Disponível 🟢</span>
     </div>
     <h1 class="hero-name">Marcelo Barbosa Silva</h1>
     <h1 class="hero-tagline">
-      <span class="grad-text-3">MUITO LOUCO! 🤯</span>
+      <span class="grad-text-3" data-i18n="hero_tagline">IT Support · Infraestrutura · QA ⚙️</span>
     </h1>
     <p class="hero-desc">
-      <strong>Desenvolvedor de Software</strong> em formação,
-      <em>apaixonado por tecnologia</em> e sempre em busca de novos desafios!<br/>
-      Transformando <strong style="color:var(--yellow);">café em código</strong> e criando soluções que fazem a diferença! ☕💻✨
+      Profissional de TI com experiência em <strong>suporte técnico e infraestrutura</strong>
+      em ambiente operacional. Atuo com <em>diagnóstico de incidentes</em>, estabilidade de sistemas
+      e melhoria de processos que impactam diretamente a operação.<br/><br/>
+      Nos últimos anos venho aprofundando estudos em
+      <strong style="color:var(--yellow);">Quality Assurance e desenvolvimento</strong>
+      para ampliar a visão sobre funcionamento e qualidade dos sistemas. ⚙️
     </p>
     <div class="hero-btns">
-      <a href="#projects" class="btn-primary">VER MEUS PROJETOS! 💻</a>
-      <a href="mailto:marcelao61.mbs@gmail.com" class="btn-outline">Vamos Conversar? 💬</a>
+      <a href="#projects" class="btn-primary" data-i18n="hero_btn1">Ver experiência 🗂️</a>
+      <a href="mailto:marcelo.silva8115@gmail.com" class="btn-outline" data-i18n="hero_btn2">Vamos Conversar? 💬</a>
     </div>
-    <div class="hero-meta">
-      <span>⭐ Estudante ADS 📚</span>
-      <span>
-        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-        Sempre aprendendo 🚀
-      </span>
-    </div>
+    
   </div>
 
   <div class="photo-card glass reveal">
@@ -870,15 +894,15 @@
     </div>
     <div class="photo-status">
       <span class="dot"></span>
-      Disponível para oportunidades
+      <span data-i18n="photo_status">Disponível para oportunidades</span>
     </div>
     <div class="photo-skills">
-      <span class="tag">C# 🔷</span>
-      <span class="tag">JavaScript ⚡</span>
-      <span class="tag">HTML &amp; CSS 🎨</span>
-      <span class="tag">Design Patterns 🏗️</span>
-      <span class="tag">Git 🔄</span>
-      <span class="tag">ADS 📚</span>
+      <span class="tag">Suporte N1/N2 🛠️</span>
+      <span class="tag">Windows ⚙️</span>
+      <span class="tag">Redes 🌐</span>
+      <span class="tag">ERP 📊</span>
+      <span class="tag">QA 🔍</span>
+      <span class="tag">Python 🐍</span>
     </div>
     <span class="floating-emoji fe-fire">🔥</span>
     <span class="floating-emoji fe-code">💻</span>
@@ -889,43 +913,44 @@
 <section id="skills" class="section z1">
   <div class="container">
     <div class="reveal">
-      <span class="section-label">Por que eu?</span>
-      <h2 class="section-title">Por que sou <span class="grad-text">DIFERENTE</span>? 🌟</h2>
+      <span class="section-label" data-i18n="skills_label">Como eu contribuo</span>
+      <h2 class="section-title" data-i18n="skills_title">Como posso <span class="grad-text">ajudar</span> 🛠️</h2>
       <p class="section-sub">
-        Não sou apenas mais um desenvolvedor. Sou alguém que
-        <strong style="color:#ec4899;">transforma problemas em soluções</strong> e está sempre em busca de aprender algo novo!
+        Atuação prática em TI, com foco em
+        <strong style="color:#ec4899;">estabilidade, diagnóstico e melhoria contínua</strong>
+        dos sistemas e processos que sustentam a operação.
       </p>
     </div>
     <div class="features-grid">
       <div class="feature-card glass reveal reveal-delay-1">
-        <div class="icon-wrap">🔨</div>
-        <h3>Desenvolvimento Full Stack 💻</h3>
-        <p>Domínio em C#, HTML, CSS, JavaScript e sempre explorando novas tecnologias para criar soluções completas.</p>
+        <div class="icon-wrap">🛠️</div>
+        <h3 data-i18n="feat1_title">Suporte técnico e resolução de incidentes</h3>
+        <p data-i18n="feat1_desc">Atuação em suporte N1/N2 com diagnóstico e resolução de problemas relacionados a sistemas, hardware e conectividade.</p>
       </div>
       <div class="feature-card glass reveal reveal-delay-2">
-        <div class="icon-wrap">⚙️</div>
-        <h3>Design Patterns Expert 🏗️</h3>
-        <p>Conhecimento sólido em padrões como Strategy, Facade e outros, criando código limpo e escalável.</p>
+        <div class="icon-wrap">🌐</div>
+        <h3 data-i18n="feat2_title">Infraestrutura e estabilidade operacional</h3>
+        <p data-i18n="feat2_desc">Suporte a ambientes Windows, redes e infraestrutura básica, garantindo funcionamento contínuo dos sistemas utilizados na operação.</p>
       </div>
       <div class="feature-card glass reveal reveal-delay-3">
-        <div class="icon-wrap">🔄</div>
-        <h3>Colaboração e Git 🤝</h3>
-        <p>Experiência com controle de versão, trabalho em equipe e boas práticas de desenvolvimento colaborativo.</p>
+        <div class="icon-wrap">📊</div>
+        <h3 data-i18n="feat3_title">Sistemas integrados e ERP</h3>
+        <p data-i18n="feat3_desc">Monitoramento e suporte a sistemas ERP integrados via API em ambiente logístico de alta demanda.</p>
       </div>
       <div class="feature-card glass reveal reveal-delay-1">
-        <div class="icon-wrap">🎯</div>
-        <h3>Sempre Aprendendo 📚</h3>
-        <p>Estudante de ADS com fome de conhecimento, sempre buscando novos desafios e tecnologias.</p>
+        <div class="icon-wrap">📈</div>
+        <h3 data-i18n="feat4_title">Análise e melhoria de processos</h3>
+        <p data-i18n="feat4_desc">Identificação de gargalos operacionais e proposição de melhorias que aumentam eficiência e reduzem desperdícios.</p>
       </div>
       <div class="feature-card glass reveal reveal-delay-2">
-        <div class="icon-wrap">🧠</div>
-        <h3>Resolução de Problemas ⚡</h3>
-        <p>Capacidade de analisar problemas complexos e criar soluções eficientes e inovadoras.</p>
+        <div class="icon-wrap">🔍</div>
+        <h3 data-i18n="feat5_title">Visão ampliada de qualidade</h3>
+        <p data-i18n="feat5_desc">Estudo de fundamentos de QA e análise de falhas para fortalecer a prevenção de incidentes e melhorar a estabilidade dos sistemas.</p>
       </div>
       <div class="feature-card glass reveal reveal-delay-3">
-        <div class="icon-wrap">💡</div>
-        <h3>Projetos Reais 🎯</h3>
-        <p>Do conceito à implementação, transformo ideias em aplicações funcionais que fazem a diferença.</p>
+        <div class="icon-wrap">💻</div>
+        <h3 data-i18n="feat6_title">Programação como ferramenta técnica</h3>
+        <p data-i18n="feat6_desc">Conhecimento de desenvolvimento auxilia no diagnóstico e na análise de comportamentos inesperados dos sistemas.</p>
       </div>
     </div>
   </div>
@@ -935,12 +960,12 @@
 <section class="section z1" style="padding:2rem 0;">
   <div class="container">
     <div class="cta-band glass reveal">
-      <h2>Vamos <span class="grad-text-3">CONSTRUIR ALGO INCRÍVEL</span> juntos? 🤝</h2>
-      <p>Está procurando um desenvolvedor dedicado e sempre disposto a aprender? Vamos conversar sobre seu próximo projeto!</p>
-      <a href="mailto:marcelao61.mbs@gmail.com" class="btn-primary" style="font-size:1.1rem;padding:1rem 2.5rem;">VAMOS CONVERSAR! 💬</a>
+      <h2 data-i18n="cta_title">Buscando um <span class="grad-text-3">ambiente estável e em evolução</span> 🎯</h2>
+      <p data-i18n="cta_desc">Profissional técnico com foco em estabilidade, qualidade e evolução contínua. Se você precisa de alguém que entende sistemas e resolve problemas na raiz, vamos conversar.</p>
+      <a href="mailto:marcelo.silva8115@gmail.com" class="btn-primary" style="font-size:1.1rem;padding:1rem 2.5rem;" data-i18n="cta_btn">VAMOS CONVERSAR! 💬</a>
       <div class="cta-meta">
-        <span>💻 Desenvolvedor em formação</span>
-        <span>🚀 Sempre em busca de novos desafios</span>
+        <span>🏢 Correios – Santos/SP · 2022–Atual</span>
+        <span data-i18n="cta_meta2">🔍 Estudando QA &amp; fundamentos de desenvolvimento</span>
       </div>
     </div>
   </div>
@@ -950,183 +975,198 @@
 <section id="projects" class="section z1">
   <div class="container">
     <div class="reveal">
-      <span class="section-label">GitHub</span>
-      <h2 class="section-title">Meus <span class="grad-text">PROJETOS</span> 🚀</h2>
+      <span class="section-label" data-i18n="proj_label">Experiência & Estudos</span>
+      <h2 class="section-title" data-i18n="proj_title">Experiência &amp; <span class="grad-text">Estudos</span> 🗂️</h2>
       <p class="section-sub">
-        Alguns dos projetos que desenvolvi durante minha jornada como desenvolvedor.
-        Cada um representa um aprendizado e um passo na minha evolução!
+        Experiência profissional real combinada com estudos técnicos que ampliam
+        minha visão sobre sistemas, qualidade e desenvolvimento.
       </p>
     </div>
     <div class="projects-grid">
       <!-- Project 1 -->
       <div class="project-card glass reveal reveal-delay-1">
         <div class="project-top">
-          <span class="project-emoji">🏗️</span>
-          <span class="badge badge-green">Completo</span>
+          <span class="project-emoji">🏢</span>
+          <span class="badge badge-green">2022 – Atual</span>
         </div>
         <div>
-          <div class="project-type">Backend</div>
-          <h3>Design Patterns em C#</h3>
+          <div class="project-type" data-i18n="p1_type">Experiência profissional</div>
+          <h3 data-i18n="p1_title">Técnico de TI · Correios Santos/SP</h3>
         </div>
-        <p>Implementação de diversos padrões de design incluindo Strategy, Facade e outros. Demonstrando conhecimento sólido em arquitetura de software.</p>
+        <p data-i18n="p1_desc">Suporte técnico N1/N2, diagnóstico e resolução de incidentes, suporte a sistemas Windows e softwares corporativos, monitoramento de ERP via API e melhoria de processos operacionais.</p>
         <div class="tags">
-          <span class="tag">C#</span>
-          <span class="tag">.NET</span>
-          <span class="tag">Design Patterns</span>
+          <span class="tag">Suporte N1/N2</span>
+          <span class="tag">Windows</span>
+          <span class="tag">ERP</span>
+          <span class="tag">Redes</span>
+          <span class="tag">Processos</span>
         </div>
         <div class="project-actions">
-          <a href="https://github.com/MarceloBarbosaSilva/DesignPatternStrategy" target="_blank" rel="noopener" class="btn-sm btn-sm-ghost">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-            Código
+          <a href="https://linkedin.com/in/mabarbosasilva" target="_blank" rel="noopener" class="btn-sm btn-sm-ghost">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
           </a>
-          <button class="btn-sm btn-sm-purple">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
-            Detalhes
-          </button>
+          <a href="mailto:marcelo.silva8115@gmail.com" class="btn-sm btn-sm-purple">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            Contato
+          </a>
         </div>
       </div>
       <!-- Project 2 -->
       <div class="project-card glass reveal reveal-delay-2">
         <div class="project-top">
-          <span class="project-emoji">🌐</span>
-          <span class="badge badge-yellow">Em desenvolvimento</span>
+          <span class="project-emoji">🔍</span>
+          <span class="badge badge-yellow">Em andamento</span>
         </div>
         <div>
-          <div class="project-type">Frontend</div>
-          <h3>Sistema de SCM</h3>
+          <div class="project-type" data-i18n="p2_type">Estudos · Quality Assurance</div>
+          <h3 data-i18n="p2_title">Fundamentos de Quality Assurance</h3>
         </div>
-        <p>Sistema de gerenciamento desenvolvido com foco em boas práticas e organização de código.</p>
+        <p data-i18n="p2_desc">Estudo de conceitos relacionados a testes de software, análise de falhas e validação de fluxos. Objetivo: compreender melhor a origem de problemas sistêmicos e fortalecer práticas de prevenção.</p>
         <div class="tags">
-          <span class="tag">HTML</span>
-          <span class="tag">CSS</span>
-          <span class="tag">JavaScript</span>
+          <span class="tag">Testes de software</span>
+          <span class="tag">Análise de falhas</span>
+          <span class="tag">Validação</span>
+          <span class="tag">Bug report</span>
         </div>
         <div class="project-actions">
-          <a href="https://github.com/MarceloBarbosaSilva/scm" target="_blank" rel="noopener" class="btn-sm btn-sm-ghost">
+          <a href="https://github.com/MarceloBarbosaSilva" target="_blank" rel="noopener" class="btn-sm btn-sm-ghost">
             <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-            Código
+            GitHub
           </a>
-          <button class="btn-sm btn-sm-purple">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
-            Detalhes
-          </button>
+          <a href="https://linkedin.com/in/mabarbosasilva" target="_blank" rel="noopener" class="btn-sm btn-sm-purple">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
         </div>
       </div>
       <!-- Project 3 -->
       <div class="project-card glass reveal reveal-delay-3">
         <div class="project-top">
-          <span class="project-emoji">📚</span>
-          <span class="badge badge-blue">Contínuo</span>
+          <span class="project-emoji">💻</span>
+          <span class="badge badge-blue">Exploratório</span>
         </div>
         <div>
-          <div class="project-type">Educacional</div>
-          <h3>Projetos Acadêmicos</h3>
+          <div class="project-type" data-i18n="p3_type">Estudos · Desenvolvimento</div>
+          <h3 data-i18n="feat6_title">Programação como ferramenta técnica</h3>
         </div>
-        <p>Diversos projetos desenvolvidos durante o curso de ADS, explorando diferentes tecnologias e conceitos.</p>
+        <p data-i18n="p3_desc">Exploração de Python, Java e Next.js para ampliar entendimento sobre funcionamento interno de sistemas. Conhecimento de programação auxilia no diagnóstico e análise de comportamentos inesperados.</p>
         <div class="tags">
-          <span class="tag">C#</span>
-          <span class="tag">HTML</span>
-          <span class="tag">CSS</span>
+          <span class="tag">Python</span>
+          <span class="tag">Java</span>
+          <span class="tag">Next.js</span>
           <span class="tag">Git</span>
+          <span class="tag">Lógica</span>
         </div>
         <div class="project-actions">
           <a href="https://github.com/MarceloBarbosaSilva" target="_blank" rel="noopener" class="btn-sm btn-sm-ghost">
             <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-            Código
+            GitHub
           </a>
-          <button class="btn-sm btn-sm-purple">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
-            Detalhes
-          </button>
+          <a href="https://linkedin.com/in/mabarbosasilva" target="_blank" rel="noopener" class="btn-sm btn-sm-purple">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
         </div>
       </div>
     </div>
     <div class="github-cta reveal">
-      <a href="https://github.com/MarceloBarbosaSilva" target="_blank" rel="noopener" class="btn-github">
+      <a href="https://linkedin.com/in/mabarbosasilva" target="_blank" rel="noopener" class="btn-github">
         <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-        Ver todos no GitHub
+        Ver perfil completo no LinkedIn
         <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
       </a>
     </div>
   </div>
 </section>
 
-<!-- ─── TESTIMONIALS ─── -->
+<!-- ─── HABILIDADES ─── -->
 <section id="testimonials" class="section z1">
   <div class="container">
     <div class="reveal">
-      <span class="section-label">Feedback</span>
-      <h2 class="section-title">O que <span class="grad-text">Colegas</span> falam? 💬</h2>
-      <p class="section-sub">Feedback de professores, colegas de curso e pessoas com quem já trabalhei.</p>
+      <span class="section-label" data-i18n="tools_label">Ferramentas & Skills</span>
+      <h2 class="section-title" data-i18n="tools_title">Com o que <span class="grad-text">trabalho</span> 🧰</h2>
+      <p class="section-sub">
+        Habilidades técnicas consolidadas na prática e estudos em andamento —
+        com transparência sobre o que é experência real e o que ainda está sendo desenvolvido.
+      </p>
     </div>
+
     <div class="testimonials-grid">
       <div class="testi-card glass reveal reveal-delay-1">
-        <div class="stars">⭐⭐⭐⭐⭐</div>
-        <blockquote>"Marcelo demonstra excelente compreensão dos conceitos de programação e sempre busca implementar as melhores práticas em seus projetos. Destaque especial para seu domínio em Design Patterns! 🎓"</blockquote>
-        <div class="testi-author">
-          <span class="testi-avatar">👨‍🏫</span>
-          <div>
-            <h4>Prof. Anderson Silva</h4>
-            <p>Professor de Programação Orientada a Objetos</p>
-          </div>
+        <div style="font-size:1.8rem;margin-bottom:.8rem;">🖥️</div>
+        <h4 style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--text);margin-bottom:1rem;" data-i18n="tools_h1">Infraestrutura e Suporte</h4>
+        <div class="tags">
+          <span class="tag">Windows 10/11</span>
+          <span class="tag">Active Directory</span>
+          <span class="tag">Redes TCP/IP</span>
+          <span class="tag">VPN</span>
+          <span class="tag">Hardware</span>
+          <span class="tag">Impressoras</span>
+          <span class="tag">Cabeamento</span>
         </div>
       </div>
+
       <div class="testi-card glass reveal reveal-delay-2">
-        <div class="stars">⭐⭐⭐⭐⭐</div>
-        <blockquote>"Sempre que tenho dúvidas em programação, o Marcelo é uma das primeiras pessoas que procuro. Ele tem uma didática incrível para explicar conceitos complexos de forma simples! 🤝"</blockquote>
-        <div class="testi-author">
-          <span class="testi-avatar">👩‍💻</span>
-          <div>
-            <h4>Julia Santos</h4>
-            <p>Colega de curso — ADS</p>
-          </div>
+        <div style="font-size:1.8rem;margin-bottom:.8rem;">📊</div>
+        <h4 style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--text);margin-bottom:1rem;" data-i18n="tools_h2">Sistemas e Operação</h4>
+        <div class="tags">
+          <span class="tag">ERP corporativo</span>
+          <span class="tag">Integração via API</span>
+          <span class="tag">Monitoramento</span>
+          <span class="tag">ITIL básico</span>
+          <span class="tag">Gestão de chamados</span>
+          <span class="tag">Documentação técnica</span>
         </div>
       </div>
+
       <div class="testi-card glass reveal reveal-delay-3">
-        <div class="stars">⭐⭐⭐⭐⭐</div>
-        <blockquote>"Trabalhei com o Marcelo em diversos projetos e sempre me impressiono com sua dedicação e capacidade de resolver problemas. Além disso, é uma pessoa super colaborativa! 🚀"</blockquote>
-        <div class="testi-author">
-          <span class="testi-avatar">👨‍💼</span>
-          <div>
-            <h4>Ricardo Oliveira</h4>
-            <p>Líder de Projeto Acadêmico</p>
-          </div>
+        <div style="font-size:1.8rem;margin-bottom:.8rem;">🔍</div>
+        <h4 style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.5rem;" data-i18n="tools_h3">Qualidade e Análise</h4>
+        <p style="font-size:.75rem;color:#c084fc;margin-bottom:.8rem;" data-i18n="tools_studying">estudando</p>
+        <div class="tags">
+          <span class="tag">Troubleshooting</span>
+          <span class="tag">Análise de falhas</span>
+          <span class="tag">QA fundamentals</span>
+          <span class="tag">Casos de teste</span>
+          <span class="tag">Validação de sistemas</span>
         </div>
       </div>
+
       <div class="testi-card glass reveal reveal-delay-4">
-        <div class="stars">⭐⭐⭐⭐⭐</div>
-        <blockquote>"O Marcelo é um exemplo de aluno dedicado e proativo. Sempre participativo nas aulas e com uma sede de conhecimento admirável. Certeza que será um excelente profissional! ⭐"</blockquote>
-        <div class="testi-author">
-          <span class="testi-avatar">👩‍🎓</span>
-          <div>
-            <h4>Ana Costa</h4>
-            <p>Coordenadora do Curso ADS</p>
-          </div>
+        <div style="font-size:1.8rem;margin-bottom:.8rem;">💻</div>
+        <h4 style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.5rem;" data-i18n="tools_h4">Desenvolvimento</h4>
+        <p style="font-size:.75rem;color:#c084fc;margin-bottom:.8rem;" data-i18n="tools_exploring">exploratório</p>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">Java</span>
+          <span class="tag">Next.js</span>
+          <span class="tag">Git &amp; GitHub</span>
+          <span class="tag">Lógica de programação</span>
         </div>
       </div>
     </div>
 
-    <!-- Stats -->
     <div class="stats-row">
       <div class="stat-card glass reveal reveal-delay-1">
-        <span class="stat-emoji">📁</span>
-        <span class="stat-num">18+</span>
-        <span class="stat-label">Repositórios no GitHub</span>
+        <span class="stat-emoji">🗓️</span>
+        <span class="stat-num">3+</span>
+        <span class="stat-label" data-i18n="stat1">Anos em suporte técnico</span>
       </div>
       <div class="stat-card glass reveal reveal-delay-2">
-        <span class="stat-emoji">💻</span>
-        <span class="stat-num">3+</span>
-        <span class="stat-label">Linguagens Dominadas</span>
+        <span class="stat-emoji">🏢</span>
+        <span class="stat-num">N1/N2</span>
+        <span class="stat-label" data-i18n="stat2">Nível de atendimento</span>
       </div>
       <div class="stat-card glass reveal reveal-delay-3">
-        <span class="stat-emoji">📚</span>
-        <span class="stat-num">100%</span>
-        <span class="stat-label">Dedicação aos Estudos</span>
+        <span class="stat-emoji">📉</span>
+        <span class="stat-num">↓ custo</span>
+        <span class="stat-label" data-i18n="stat3">Via melhoria de processos</span>
       </div>
       <div class="stat-card glass reveal reveal-delay-4">
-        <span class="stat-emoji">🚀</span>
-        <span class="stat-num">∞</span>
-        <span class="stat-label">Vontade de Aprender</span>
+        <span class="stat-emoji">🔍</span>
+        <span class="stat-num">QA</span>
+        <span class="stat-label" data-i18n="stat4">Próxima especialização</span>
       </div>
     </div>
   </div>
@@ -1138,8 +1178,8 @@
     <div class="footer-grid">
       <!-- Brand -->
       <div class="footer-brand">
-        <a href="#hero" class="logo">💻 Marcelo.dev</a>
-        <p>Desenvolvedor de Software em formação, apaixonado por tecnologia e sempre em busca de novos desafios. Transformando café em código desde 2024! ☕💻</p>
+        <a href="#hero" class="logo">🖥️ Marcelo.dev</a>
+        <p data-i18n="footer_bio">Profissional de TI com foco em suporte técnico, infraestrutura e qualidade de sistemas. Santos/SP · 2022–Atual ⚙️</p>
         <div class="social-links">
           <a href="https://github.com/MarceloBarbosaSilva" target="_blank" rel="noopener" class="social-btn" title="GitHub">
             <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
@@ -1155,43 +1195,43 @@
 
       <!-- Skills -->
       <div class="footer-col">
-        <h4>Skills 💻</h4>
+        <h4 data-i18n="footer_skills">Skills 💻</h4>
         <ul class="footer-list">
-          <li><span>🔷</span> C# &amp; .NET</li>
-          <li><span>🎨</span> HTML &amp; CSS</li>
-          <li><span>⚡</span> JavaScript</li>
-          <li><span>🏗️</span> Design Patterns</li>
-          <li><span>🔄</span> Git &amp; GitHub</li>
+          <li><span>🛠️</span> Suporte N1/N2</li>
+          <li><span>🌐</span> Infraestrutura de TI</li>
+          <li><span>⚙️</span> Windows &amp; Redes</li>
+          <li><span>📊</span> ERP &amp; Sistemas</li>
+          <li><span>🔍</span> Quality Assurance</li>
         </ul>
       </div>
 
       <!-- Interests -->
       <div class="footer-col">
-        <h4>Interesses 🎯</h4>
+        <h4 data-i18n="footer_interests">Interesses 🎯</h4>
         <ul class="footer-list">
-          <li><span>🌐</span> Desenvolvimento Web</li>
-          <li><span>🏛️</span> Arquitetura de Software</li>
-          <li><span>🚀</span> Novas Tecnologias</li>
-          <li><span>💡</span> Open Source</li>
-          <li><span>📚</span> Aprendizado Contínuo</li>
+          <li><span>🏗️</span> Infraestrutura &amp; Cloud</li>
+          <li><span>🔍</span> Quality Assurance</li>
+          <li><span>🚀</span> Automação de processos</li>
+          <li><span>💡</span> Prevenção de falhas</li>
+          <li><span>📚</span> Evolução técnica contínua</li>
         </ul>
       </div>
 
       <!-- Contact -->
       <div class="footer-col footer-contact">
-        <h4>Vamos Conversar? 💬</h4>
-        <p>Tem algum projeto em mente? Vamos criar algo incrível juntos!</p>
-        <a href="mailto:marcelao61.mbs@gmail.com" class="btn-primary" style="width:100%;justify-content:center;">Enviar Email 📧</a>
-        <p style="margin-top:.8rem;font-size:.75rem;color:#6b6a8f;text-align:center;">Sempre aberto a novas oportunidades!</p>
+        <h4 data-i18n="footer_contact_title">Vamos Conversar? 💬</h4>
+        <p data-i18n="footer_contact_desc">Tem algum projeto em mente? Vamos criar algo incrível juntos!</p>
+        <a href="mailto:marcelo.silva8115@gmail.com" class="btn-primary" style="width:100%;justify-content:center;" data-i18n="footer_email_btn">Enviar Email 📧</a>
+        <p style="margin-top:.8rem;font-size:.75rem;color:#6b6a8f;text-align:center;" data-i18n="footer_open">Sempre aberto a novas oportunidades!</p>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <p>© 2024 Marcelo Barbosa Silva. Feito com ❤️ e muito ☕ por um desenvolvedor apaixonado.</p>
+      <p data-i18n="footer_copy">© 2026 Marcelo Barbosa Silva · IT Support | Infraestrutura | QA ⚙️</p>
       <div class="footer-links">
-        <a href="#">Termos de Uso</a>
-        <a href="#">Privacidade</a>
-        <a href="mailto:marcelao61.mbs@gmail.com">Suporte</a>
+        <a href="#" data-i18n="footer_terms">Termos de Uso</a>
+        <a href="#" data-i18n="footer_privacy">Privacidade</a>
+        <a href="mailto:marcelo.silva8115@gmail.com">Suporte</a>
       </div>
     </div>
 
@@ -1233,6 +1273,212 @@
       el.style.transform = 'translateY(0)';
     }));
   });
+
+
+
+  // ─── TILT CARDS ─────────────────────────────────────────────────────────
+  (function () {
+    const TILT    = 12;   // graus máximos de rotação
+    const SCALE   = 1.04; // quanto cresce
+    const EASE_IN = 'cubic-bezier(.23,1,.32,1)';
+
+    function initTilt(el) {
+      let raf = null;
+
+      function onMove(e) {
+        const r   = el.getBoundingClientRect();
+        const x   = e.clientX - r.left;
+        const y   = e.clientY - r.top;
+        const cx  = r.width  / 2;
+        const cy  = r.height / 2;
+        const rx  =  ((y - cy) / cy) * TILT;   // inclina para o mouse (Y → rotateX)
+        const ry  = -((x - cx) / cx) * TILT;   // inclina para o mouse (X → rotateY)
+
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(function () {
+          el.style.transform   = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(${SCALE},${SCALE},${SCALE})`;
+          el.style.transition  = `transform .1s ${EASE_IN}`;
+        });
+      }
+
+      function onEnter() {
+        el.classList.add('tilt-active');
+      }
+
+      function onLeave() {
+        if (raf) cancelAnimationFrame(raf);
+        el.classList.remove('tilt-active');
+        el.style.transition = `transform .5s ${EASE_IN}`;
+        el.style.transform  = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
+      }
+
+      el.addEventListener('mouseenter', onEnter);
+      el.addEventListener('mousemove',  onMove);
+      el.addEventListener('mouseleave', onLeave);
+    }
+
+    document.querySelectorAll('.glass').forEach(initTilt);
+  })();
+
+  // ─── i18n ───────────────────────────────────────────────────────────────
+  const translations = {
+    pt: {
+      nav_skills:           "Skills",
+      nav_projects:         "Projetos",
+      nav_skills_section:   "Habilidades",
+      nav_contact:          "Fala comigo 👋",
+      hero_badge:           "Santos/SP · Disponível 🟢",
+      hero_tagline:         "IT Support · Infraestrutura · QA ⚙️",
+      hero_desc:            `Profissional de TI com experiência em <strong>suporte técnico e infraestrutura</strong> em ambiente operacional. Atuo com <em>diagnóstico de incidentes</em>, estabilidade de sistemas e melhoria de processos que impactam diretamente a operação.<br/><br/>Nos últimos anos venho aprofundando estudos em <strong style="color:var(--yellow);">Quality Assurance e desenvolvimento</strong> para ampliar a visão sobre funcionamento e qualidade dos sistemas. ⚙️`,
+      hero_btn1:            "Ver experiência 🗂️",
+      hero_btn2:            "Vamos Conversar? 💬",
+      hero_meta1:           "🏢 Correios · Santos/SP · 2022–Atual",
+      hero_meta2:           "Estudando QA &amp; Dev 📚",
+      photo_status:         "Disponível para oportunidades",
+      skills_label:         "Como eu contribuo",
+      skills_title:         `Como posso <span class="grad-text">ajudar</span> 🛠️`,
+      skills_sub:           `Atuação prática em TI, com foco em <strong style="color:#ec4899;">estabilidade, diagnóstico e melhoria contínua</strong> dos sistemas e processos que sustentam a operação.`,
+      feat1_title:          "Suporte técnico e resolução de incidentes",
+      feat1_desc:           "Atuação em suporte N1/N2 com diagnóstico e resolução de problemas relacionados a sistemas, hardware e conectividade.",
+      feat2_title:          "Infraestrutura e estabilidade operacional",
+      feat2_desc:           "Suporte a ambientes Windows, redes e infraestrutura básica, garantindo funcionamento contínuo dos sistemas utilizados na operação.",
+      feat3_title:          "Sistemas integrados e ERP",
+      feat3_desc:           "Monitoramento e suporte a sistemas ERP integrados via API em ambiente logístico de alta demanda.",
+      feat4_title:          "Análise e melhoria de processos",
+      feat4_desc:           "Identificação de gargalos operacionais e proposição de melhorias que aumentam eficiência e reduzem desperdícios.",
+      feat5_title:          "Visão ampliada de qualidade",
+      feat5_desc:           "Estudo de fundamentos de QA e análise de falhas para fortalecer a prevenção de incidentes e melhorar a estabilidade dos sistemas.",
+      feat6_title:          "Programação como ferramenta técnica",
+      feat6_desc:           "Conhecimento de desenvolvimento auxilia no diagnóstico e na análise de comportamentos inesperados dos sistemas.",
+      cta_title:            `Buscando um <span class="grad-text-3">ambiente estável e em evolução</span> 🎯`,
+      cta_desc:             "Profissional técnico com foco em estabilidade, qualidade e evolução contínua. Se você precisa de alguém que entende sistemas e resolve problemas na raiz, vamos conversar.",
+      cta_btn:              "VAMOS CONVERSAR! 💬",
+      cta_meta2:            "🔍 Estudando QA &amp; fundamentos de desenvolvimento",
+      proj_label:           "Experiência & Estudos",
+      proj_title:           `Experiência &amp; <span class="grad-text">Estudos</span> 🗂️`,
+      proj_sub:             "Experiência profissional real combinada com estudos técnicos que ampliam minha visão sobre sistemas, qualidade e desenvolvimento.",
+      p1_type:              "Experiência profissional",
+      p1_title:             "Técnico de TI · Correios Santos/SP",
+      p1_desc:              "Suporte técnico N1/N2, diagnóstico e resolução de incidentes, suporte a sistemas Windows e softwares corporativos, monitoramento de ERP via API e melhoria de processos operacionais.",
+      p2_type:              "Estudos · Quality Assurance",
+      p2_title:             "Fundamentos de Quality Assurance",
+      p2_desc:              "Estudo de conceitos relacionados a testes de software, análise de falhas e validação de fluxos. Objetivo: compreender melhor a origem de problemas sistêmicos e fortalecer práticas de prevenção.",
+      p3_type:              "Estudos · Desenvolvimento",
+      p3_title:             "Programação como ferramenta técnica",
+      p3_desc:              "Exploração de Python, Java e Next.js para ampliar entendimento sobre funcionamento interno de sistemas. Conhecimento de programação auxilia no diagnóstico e análise de comportamentos inesperados.",
+      tools_label:          "Ferramentas & Skills",
+      tools_title:          `Com o que <span class="grad-text">trabalho</span> 🧰`,
+      tools_sub:            "Habilidades técnicas consolidadas na prática e estudos em andamento — com transparência sobre o que é experiência real e o que ainda está sendo desenvolvido.",
+      tools_h1:             "Infraestrutura e Suporte",
+      tools_h2:             "Sistemas e Operação",
+      tools_h3:             "Qualidade e Análise",
+      tools_studying:       "estudando",
+      tools_h4:             "Desenvolvimento",
+      tools_exploring:      "exploratório",
+      stat1:                "Anos em suporte técnico",
+      stat2:                "Nível de atendimento",
+      stat3:                "Via melhoria de processos",
+      stat4:                "Próxima especialização",
+      footer_bio:           "Profissional de TI com foco em suporte técnico, infraestrutura e qualidade de sistemas. Santos/SP · 2022–Atual ⚙️",
+      footer_skills:        "Skills 💻",
+      footer_interests:     "Interesses 🎯",
+      footer_contact_title: "Vamos Conversar? 💬",
+      footer_contact_desc:  "Tem algum projeto em mente? Vamos criar algo incrível juntos!",
+      footer_email_btn:     "Enviar Email 📧",
+      footer_open:          "Sempre aberto a novas oportunidades!",
+      footer_copy:          "© 2026 Marcelo Barbosa Silva · IT Support | Infraestrutura | QA ⚙️",
+      footer_terms:         "Termos de Uso",
+      footer_privacy:       "Privacidade",
+    },
+    en: {
+      nav_skills:           "Skills",
+      nav_projects:         "Projects",
+      nav_skills_section:   "Skills",
+      nav_contact:          "Get in touch 👋",
+      hero_badge:           "Santos/SP · Available 🟢",
+      hero_tagline:         "IT Support · Infrastructure · QA ⚙️",
+      hero_desc:            `IT professional with experience in <strong>technical support and infrastructure</strong> in operational environments. I work with <em>incident diagnosis</em>, system stability and process improvement that directly impact operations.<br/><br/>Over the last few years I have been deepening my studies in <strong style="color:var(--yellow);">Quality Assurance and development</strong> to broaden my understanding of how systems work and how to ensure their quality. ⚙️`,
+      hero_btn1:            "See my experience 🗂️",
+      hero_btn2:            "Let&#39;s talk? 💬",
+      hero_meta1:           "🏢 Correios · Santos/SP · 2022–Present",
+      hero_meta2:           "Studying QA &amp; Dev 📚",
+      photo_status:         "Open to opportunities",
+      skills_label:         "How I contribute",
+      skills_title:         `How I can <span class="grad-text">help</span> 🛠️`,
+      skills_sub:           `Hands-on IT work focused on <strong style="color:#ec4899;">stability, diagnosis and continuous improvement</strong> of the systems and processes that keep operations running.`,
+      feat1_title:          "Technical support & incident resolution",
+      feat1_desc:           "N1/N2 support with diagnosis and resolution of issues related to systems, hardware and connectivity.",
+      feat2_title:          "Infrastructure & operational stability",
+      feat2_desc:           "Support for Windows environments, networks and basic infrastructure, ensuring continuous operation of systems used in production.",
+      feat3_title:          "Integrated systems & ERP",
+      feat3_desc:           "Monitoring and support for API-integrated ERP systems in a high-demand logistics environment.",
+      feat4_title:          "Process analysis & improvement",
+      feat4_desc:           "Identifying operational bottlenecks and proposing improvements that increase efficiency and reduce waste.",
+      feat5_title:          "Expanded quality vision",
+      feat5_desc:           "Studying QA fundamentals and failure analysis to strengthen incident prevention and improve system stability.",
+      feat6_title:          "Programming as a technical tool",
+      feat6_desc:           "Development knowledge helps with diagnosis and analysis of unexpected system behaviour.",
+      cta_title:            `Looking for a <span class="grad-text-3">stable and evolving environment</span> 🎯`,
+      cta_desc:             "Technical professional focused on stability, quality and continuous growth. If you need someone who truly understands systems and solves problems at the root, let&#39;s talk.",
+      cta_btn:              "LET&#39;S TALK! 💬",
+      cta_meta2:            "🔍 Studying QA &amp; development fundamentals",
+      proj_label:           "Experience & Studies",
+      proj_title:           `Experience &amp; <span class="grad-text">Studies</span> 🗂️`,
+      proj_sub:             "Real professional experience combined with technical studies that broaden my understanding of systems, quality and development.",
+      p1_type:              "Professional experience",
+      p1_title:             "IT Technician · Correios Santos/SP",
+      p1_desc:              "N1/N2 technical support, incident diagnosis and resolution, support for Windows systems and corporate software, ERP monitoring via API and operational process improvement.",
+      p2_type:              "Studies · Quality Assurance",
+      p2_title:             "Quality Assurance Fundamentals",
+      p2_desc:              "Study of software testing concepts, failure analysis and flow validation. Goal: better understand the root cause of systemic issues and strengthen prevention practices.",
+      p3_type:              "Studies · Development",
+      p3_title:             "Programming as a technical tool",
+      p3_desc:              "Exploring Python, Java and Next.js to deepen understanding of how systems work internally. Programming knowledge improves diagnosis and analysis of unexpected behaviour.",
+      tools_label:          "Tools & Skills",
+      tools_title:          `What I <span class="grad-text">work with</span> 🧰`,
+      tools_sub:            "Technical skills consolidated in practice and ongoing studies — with transparency about what is real experience and what is still being developed.",
+      tools_h1:             "Infrastructure & Support",
+      tools_h2:             "Systems & Operations",
+      tools_h3:             "Quality & Analysis",
+      tools_studying:       "studying",
+      tools_h4:             "Development",
+      tools_exploring:      "exploratory",
+      stat1:                "Years in technical support",
+      stat2:                "Support level",
+      stat3:                "Through process improvement",
+      stat4:                "Next specialisation",
+      footer_bio:           "IT professional focused on technical support, infrastructure and system quality. Santos/SP · 2022–Present ⚙️",
+      footer_skills:        "Skills 💻",
+      footer_interests:     "Interests 🎯",
+      footer_contact_title: "Let&#39;s talk? 💬",
+      footer_contact_desc:  "Have a project in mind? Let&#39;s build something great together!",
+      footer_email_btn:     "Send Email 📧",
+      footer_open:          "Always open to new opportunities!",
+      footer_copy:          "© 2026 Marcelo Barbosa Silva · IT Support | Infrastructure | QA ⚙️",
+      footer_terms:         "Terms of Use",
+      footer_privacy:       "Privacy",
+    }
+  };
+
+  let currentLang = "pt";
+
+  function toggleLang() {
+    currentLang = currentLang === "pt" ? "en" : "pt";
+    applyLang(currentLang);
+    const btn = document.getElementById("langToggle");
+    btn.innerHTML = currentLang === "pt"
+      ? "<span class=\"lang-flag\">🇺🇸</span> EN"
+      : "<span class=\"lang-flag\">🇧🇷</span> PT";
+  }
+
+  function applyLang(lang) {
+    const t = translations[lang];
+    document.querySelectorAll("[data-i18n]").forEach(function(el) {
+      const key = el.getAttribute("data-i18n");
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+    document.documentElement.lang = lang === "pt" ? "pt-BR" : "en";
+  }
 
   // Konami code easter egg
   const konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
